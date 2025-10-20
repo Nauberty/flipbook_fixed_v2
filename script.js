@@ -1,11 +1,13 @@
 $(document).ready(function () {
   // Inicializa o livro
   $("#flipbook").turn({
-    autoCenter: true,
-    elevation: 100,
-    gradients: true,
-    acceleration: true,
-    duration: 1200,
+    width: 900,   // largura total do livro (2 * largura de .page)
+  height: 600,  // altura do livro
+  autoCenter: true,
+  elevation: 100,
+  gradients: true,
+  acceleration: true,
+  duration: 1200,
     when: {
       turning: function (event, page, view) {
         $(".book-corner").removeClass("visible");
@@ -16,7 +18,6 @@ $(document).ready(function () {
       }
     }
   });
-
   
 
   // Efeito de dobra quando o mouse se aproxima das bordas
@@ -46,5 +47,9 @@ $(document).ready(function () {
     cornerRight.classList.remove("visible");
   });
 });
+
+
+
+
 
 
