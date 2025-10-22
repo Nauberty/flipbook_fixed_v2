@@ -75,6 +75,13 @@ body {
   }
 }
 
+/* Capas maiores e fixas */
+.page.hard {
+  background: #d856b7;
+  position: relative;
+  z-index: 99 !important;
+}
+
 .hard{
   border-radius: 3px;
   position: absolute;
@@ -83,42 +90,61 @@ body {
   background-size: cover;
   background-position: center;
   overflow: hidden;
-  background-color: rgb(220, 20, 60);
   box-shadow: 0 0 25px rgba(0,0,0,0.3);
   transform: none !important;
   z-index: 99;
 }
+
+
 
 /* sombra da capa frontal */
 .front-cover.hard::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("assets/pages/flip_book_edge_shading.webp"); /* caminho da sua sombra */
+
+  /* Aplica o gradiente transparente + a textura da linha */
+  background:
+    linear-gradient(to left, rgba(79, 4, 141, 0.7), rgba(14, 6, 15, 0.096)), /* sombra suave */
+    url("assets/pages/flip_book_edge_shading.webp");
+
   background-repeat: no-repeat;
   background-size: cover;
   background-position: left center;
-  transform: none;
+
   pointer-events: none;
   z-index: 2;
 }
+
 
 /* sombra da capa traseira — invertida e fixa do lado direito */
 .back-cover.hard::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("assets/pages/flip_book_edge_shading.webp"); /* mesma imagem */
+
+  /* Aplica o gradiente transparente + a textura da linha */
+  background:
+    linear-gradient(to left, rgba(72, 0, 105, 0.973), rgba(14, 6, 15, 0.096)), /* sombra suave */
+    url("assets/pages/flip_book_edge_shading.webp");
+
   background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left center;
+    background-repeat: no-repeat;
   background-size: cover;
   background-position: right center;
   transform: scaleX(-1); /* inverte a sombra horizontalmente */
   pointer-events: none;
   z-index: 2;
+  pointer-events: none;
+  z-index: 2;
 }
 
 
-
+#contra-capa {
+  background-color: rgba(79, 4, 141, 0.7);
+}
 
 /* Sombreamento lateral direito (para páginas da esquerda) */
 #flipbook .page.odd {
@@ -179,106 +205,7 @@ body {
 
 
 
-/* Capas maiores e fixas */
-.page.hard {
-  background: #ff0033;
-  position: relative;/* style.css — Turn.js estilizado e centralizado */
 
-  /* Reset geral */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Fundo e centralização */
-  html,
-  body {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #f4e8e8;
-    overflow: hidden; /* remove barras de rolagem */
-    font-family: "Poppins", sans-serif;
-  }
-  
-  /* Container principal do livro */
-  .book-container {
-    width: 90vw;
-    max-width: 900px;
-    aspect-ratio: 3 / 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Livro */
-  #book {
-    width: 100%;
-    height: 100%;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    border-radius: 6px;
-  }
-  
-  /* Página padrão */
-  .page {
-    background: #fff;
-    border-radius: 6px;
-    border: 1px solid #d9cfcf;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-    overflow: hidden;
-  }
-  
-  /* Capas duras (capa e contracapa) */
-  .page.hard {
-    background: #d92850;
-    color: #fff;
-    font-weight: 600;
-    border: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-  }
-  
-  /* Página atual (efeito simples) */
-  .page.current {
-    transform: scale(1.02);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Efeito de dobra no canto (se quiser ativar) */
-  .book-corner {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    bottom: 0;
-    right: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .book-corner.visible {
-    opacity: 1;
-  }
-  
-  /* Ajuste responsivo */
-  @media (max-width: 768px) {
-    .book-container {
-      width: 95vw;
-      aspect-ratio: 3 / 2;
-    }
-    .page {
-      font-size: 1rem;
-    }
-  }
-  
-  z-index: 99 !important;
-}
 
 /* Sombra das capas */
 .shadow-cover {
