@@ -1,8 +1,11 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
+  overflow: hidden;
   font-family: Arial, Helvetica, sans-serif;
   background: #e6c6c6; /* fundo suave */
   margin: 0;
@@ -11,8 +14,11 @@ body {
 }
 
 #flipbook {
-  width: 1000px;
-  height: 700px;
+  position: relative;
+  width: 600px;
+  height: 400px;
+  perspective: 1500px;
+  margin: auto;
 }
 
 /* Container */
@@ -25,8 +31,7 @@ body {
 
 /* Páginas */
 .page {
-  width: 1000px;
-  height: 700px;
+  position: absolute;
   background: #e9ddc6;
   border-radius: 3px;
   overflow: hidden;
@@ -38,14 +43,6 @@ body {
   perspective: 2000px;
 }
 
-.front-cover::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 8px; /* espessura da borda */
-}
 
 .page img {
   width: 100%;
@@ -79,24 +76,45 @@ body {
 }
 
 .hard{
+  border-radius: 3px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
   background-color: rgb(220, 20, 60);
   box-shadow: 0 0 25px rgba(0,0,0,0.3);
   transform: none !important;
- 
+  z-index: 99;
 }
 
-
-
-
-.back-cover img{
+/* sombra da capa frontal */
+.front-cover.hard::before {
+  content: "";
   position: absolute;
-  top: 0;
-  right: -417px; /* empurra pra fora um pouquinho */
-  left: auto;
-  width: 100%; /* ajuste conforme sua imagem */
-  height: 100%;
-  pointer-events: none; /* pra não bloquear o clique */
-  z-index: 10;
+  inset: 0;
+  background-image: url("assets/pages/flip_book_edge_shading.webp"); /* caminho da sua sombra */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left center;
+  transform: none;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* sombra da capa traseira — invertida e fixa do lado direito */
+.back-cover.hard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("assets/pages/flip_book_edge_shading.webp"); /* mesma imagem */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right center;
+  transform: scaleX(-1); /* inverte a sombra horizontalmente */
+  pointer-events: none;
+  z-index: 2;
 }
 
 
@@ -161,7 +179,133 @@ body {
 
 
 
+/* Capas maiores e fixas */
+.page.hard {
+  background: #ff0033;
+  position: relative;/* style.css — Turn.js estilizado e centralizado */
 
+  /* Reset geral */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Fundo e centralização */
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f4e8e8;
+    overflow: hidden; /* remove barras de rolagem */
+    font-family: "Poppins", sans-serif;
+  }
+  
+  /* Container principal do livro */
+  .book-container {
+    width: 90vw;
+    max-width: 900px;
+    aspect-ratio: 3 / 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Livro */
+  #book {
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+  }
+  
+  /* Página padrão */
+  .page {
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #d9cfcf;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  
+  /* Capas duras (capa e contracapa) */
+  .page.hard {
+    background: #d92850;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Página atual (efeito simples) */
+  .page.current {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Efeito de dobra no canto (se quiser ativar) */
+  .book-corner {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .book-corner.visible {
+    opacity: 1;
+  }
+  
+  /* Ajuste responsivo */
+  @media (max-width: 768px) {
+    .book-container {
+      width: 95vw;
+      aspect-ratio: 3 / 2;
+    }
+    .page {
+      font-size: 1rem;
+    }
+  }
+  
+  z-index: 99 !important;
+}
 
+/* Sombra das capas */
+.shadow-cover {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 30px;
+  object-fit: cover;
+  pointer-events: none;
+}
 
+/* sombra da capa esquerda */
+.shadow-cover.left {
+  left: 0;
+}
 
+/* sombra da contra capa direita */
+.shadow-cover.right {
+  right: 0;
+  transform: scaleX(-1); /* inverte a imagem horizontalmente */
+}
+
+/* Ajuste responsivo */
+@media (max-width: 700px) {
+  .book-container {
+    max-width: 100vw;
+    aspect-ratio: 1 / 1.3;
+  }
+}
