@@ -125,25 +125,21 @@ body {
 
   /* Aplica o gradiente transparente + a textura da linha */
   background:
-    linear-gradient(to left, rgba(72, 0, 105, 0.973), rgba(14, 6, 15, 0.096)), /* sombra suave */
+    linear-gradient(to left, rgba(72, 0, 105, 0.973), rgba(14, 6, 15, 0.096)), /* sombra invertida */
     url("assets/pages/flip_book_edge_shading.webp");
-
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: left center;
-    background-repeat: no-repeat;
-  background-size: cover;
-  background-position: right center;
-  transform: scaleX(-1); /* inverte a sombra horizontalmente */
-  pointer-events: none;
-  z-index: 2;
+  background-position: left center; /* <-- move para o lado esquerdo */
+  transform: scaleX(-1); /* <-- espelha a imagem horizontalmente */
+
   pointer-events: none;
   z-index: 2;
 }
 
 
+
 #contra-capa {
-  background-color: rgba(79, 4, 141, 0.7);
+  background-color: rgba(124, 71, 148, 0.7);
 }
 
 /* Sombreamento lateral direito (para páginas da esquerda) */

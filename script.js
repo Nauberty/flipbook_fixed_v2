@@ -138,3 +138,19 @@ function resizeFlipbook() {
 $(window).on('load resize orientationchange', resizeFlipbook);
 
 
+// Função para ajustar dinamicamente a área da dobra
+function ajustarAreaDobra() {
+  const $flipbook = $("#flipbook");
+  const largura = $flipbook.width();
+
+  // Define o tamanho da dobra proporcional (por ex: 8% da largura do livro)
+  const cornerSize = Math.max(30, largura * 0.08);
+
+  // Atualiza a configuração do turn.js
+  $flipbook.turn("options", {
+    cornerSize: cornerSize
+  });
+}
+
+// Executa ao abrir e quando redimensionar a tela
+$(window).on("load resize orientationchange", ajustarAreaDobra);
